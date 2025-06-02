@@ -32,12 +32,47 @@ To write a Python program to evaluate a user-given Postfix expression that conta
 ### PROGRAM
 
 ```
+OPERATORS=set(['*','-','+','%','/','**']) 
+
+
+def evaluate_postfix(expression):
+    stack=[] 
+    for i in expression:
+        if i not in OPERATORS:
+            stack.append(i)  
+        
+        else:
+            a=stack.pop()  
+            b=stack.pop()
+        
+            if i=='+':
+                res=int(b)+int(a)  
+            elif i=='-':
+                res=int(b)-int(a)    
+            elif i=='*':
+                res=int(b)*int(a)
+            elif i=='%':
+                res=int(b)%int(a) 
+            elif i=='/':
+                res=int(b)/int(a)
+            elif i=='**':
+                res=int(b)**int(a)
+    
+            stack.append(res) 
+    return stack[0]
+
+expression =input()
+print('postfix expression: ',expression)
+print('Evaluation result: ',evaluate_postfix(expression))
 
 
 ```
 
 ### OUTPUT
 
+![image](https://github.com/user-attachments/assets/9fd78b29-0a8d-495d-9661-25b9173f74af)
+
 
 ### RESULT
+Thus, the evaluation of a postfix expression using stack operations and operator precedence was implemented and executed successfully.
 
