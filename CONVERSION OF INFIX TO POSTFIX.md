@@ -4,7 +4,7 @@
 ---
 
 ### AIM  
-To write a Python program to convert a given Infix expression to Postfix expression by following the precedence and associative rules. The input expression contains only Division, Subtraction, and Bitwise AND operators. A dictionary is used to set the priority for operators, and a set is used to hold the operators used in the given expression.
+To write a Python program to convert a given Infix expression to Postfix expression by following the precedence and associative rules. The input expression contains only Division `/`, Subtraction `-`, and Bitwise AND `&` operators. A dictionary is used to set the priority for operators, and a set is used to hold the operators used in the given expression.
 
 ---
 
@@ -29,12 +29,46 @@ To write a Python program to convert a given Infix expression to Postfix express
 
 ### PROGRAM
 
-```
+```python
+# Only supports: Division (/), Subtraction (-), Bitwise AND (&)
+operators = set(['/', '-', '&', '(', ')'])
+priority = {'/': 2, '-': 1, '&': 0}
+
+def infixToPostfix(expression):
+    stack = []
+    output = ''
+
+    for character in expression:
+        if character not in operators:
+            output += character
+        elif character == '(':
+            stack.append(character)
+        elif character == ')':
+            while stack and stack[-1] != '(':
+                output += stack.pop()
+            stack.pop()  # remove '('
+        else:  # operator
+            while stack and stack[-1] != '(' and priority[character] <= priority.get(stack[-1], 0):
+                output += stack.pop()
+            stack.append(character)
+
+    while stack:
+        output += stack.pop()
+
+    return output
+
+# Driver code
+expression = input("Enter an infix expression using /, -, &: ")
+print("Infix notation: ", expression)
+print("Postfix notation: ", infixToPostfix(expression))
 
 ```
 
 ### OUTPUT
+![image](https://github.com/user-attachments/assets/5dd037cf-75f4-497a-9dbf-ebfd0389396b)
 
 
 ### RESULT
+
+Thus, the conversion of infix to postfix expression using stack with operator precedence and associativity was implemented successfully.
 
