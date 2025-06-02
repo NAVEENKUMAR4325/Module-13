@@ -28,13 +28,43 @@ To write a Python program to evaluate a user-given Prefix expression using a sta
 ### PROGRAM
 
 ```
+OPERATORS = set(['*', '-', '+'])
+
+def evaluate(expression):
+    stack = []
+    
+   
+    for ch in reversed(expression):
+        if ch.isdigit():
+            stack.append(int(ch))
+        elif ch in OPERATORS:
+            op1 = stack.pop()
+            op2 = stack.pop()
+
+            if ch == '+':
+                stack.append(op1 + op2)
+            elif ch == '-':
+                stack.append(op1 - op2)
+            elif ch == '*':
+                stack.append(op1 * op2)
+    
+    return stack.pop()
+
+
+test_expression = input().strip()
+
+
+print("Prefix Expression :", test_expression)
+print("Evaluation result :", evaluate(test_expression))
 
 
 ```
 
 
 ### OUTPUT
+![image](https://github.com/user-attachments/assets/94fbcee2-b4ec-4a38-947a-97dcd8c3aa7c)
 
 
 
 ### RESULT
+Thus, the evaluation of a prefix expression using stack operations and operator precedence was successfully implemented and executed.
